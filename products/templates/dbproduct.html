@@ -1,0 +1,34 @@
+{%  extends 'base.html' %}
+
+{% block title %} Database Products {% endblock %}
+
+    {% block nav %}Home{% endblock %}{% block link %}{% url 'home' %}{% endblock %}
+
+
+    {% block content %} 
+
+    <div class="container">
+        <h1 class="fw-bolder text-danger">New products</h1>
+        <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+        quidem corrupti laboriosam. earum unde sed officiis modi aut molestias eos numquam quae rerum consectetur dicta consequuntur illo quo ratione. Ullam dolore natus minima repellendus ea sed, placeat excepturi ad vitae facilis nostrum. Ex nulla quas perferendis cupiditate debitis nesciunt voluptate dolor ratione. Dolorem consequuntur nulla natus laudantium, nostrum repellat veritatis, illum quam odio sequi fugiat animi.</p>
+    </div>
+    <div class="container">
+        <div class="row">
+        {% for prod in products %}
+        <div class="col-lg-3 col-md-4 my-3">
+        
+            <div class="card  rounded-3 text-center h-100" style="box-shadow:5px 5px 5px gray">
+                <h5 class="card-title p-2 fw-bolder">{{prod.name}}</h5>
+                <img src="{{prod.image.url}}" class="card-img-top p-4 rounded-3" height="250px" alt="Products">
+                <div class="card-body">
+                 <a class="btn btn-outline-secondary" href="{% url 'showproduct' prod.pk %}">Show</a>
+                 <a class="btn btn-outline-danger " href="{% url 'deleteproduct' prod.pk %}">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+    {% endblock %}
+
+ 

@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg py-0">
+        <div class="container-fluid p-2 bg-dark">
+            <a class="navbar-brand" href="#"><img src="https://fontech.startitup.sk/wp-content/uploads/2019/08/pictures-of-amazon.png" alt="amazon" width="75px"></a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-light" href="#" role="button">
+                            Deliver
+                            To Egypt <i class="fa-solid fa-location-pin "></i>
+                        </a>
+                    </li>
+                </ul>
+                <form class="d-flex w-75" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            En
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="dropdown-item text-light bg-dark" href="#">Ar</a></li>
+                            <li><a class="dropdown-item text-light bg-dark" href="#">DE</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light bg-dark" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Hello,Sign In<br>
+                            Account &Lists
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="dropdown-item text-light bg-dark" href="loginScreen.html">Sign Up</a></li>
+                            <li><a class="dropdown-item text-light bg-dark" href="signIn.html">Sign In</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" aria-current="page" href="#">Return<br>&Order </a>
+                    </li>
+    
+    
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  text-light" href="#" role="button" aria-expanded="false">
+                            <i class="fa-solid fa-cart-shopping fa-2x"></i>
+                            <span class="fw-bolder">Cart</span>
+                        </a>
+    
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    
+    </nav>
+    
+    
+    
+    
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-black">
+        <div class="container-fluid">
+            <i class="fa-solid fa-bars px-4 fa-3x " data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"></i>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 px-3 " aria-current="page" href="{% url 'home' %}">Home
+                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 px-3 " aria-current="page" href="{% url 'about' %}">About
+                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 px-3 " aria-current="page" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 px-3 " aria-current="page" href="{% url 'newproduct' 1 %}">New Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 px-3 " aria-current="page" href="{% url 'products' %}">dbproducts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 px-3 " aria-current="page" href="#home">New Year
+                            Sale</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 px-3 " aria-current="page" href="#">Disability Customer
+                            Support</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block content %} {% endblock %}
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{% static 'apiCall.js' %}"></script>
+
+</body>
+</html>
