@@ -22,6 +22,7 @@
                 <img src="{{prod.image.url}}" class="card-img-top p-4 rounded-3" height="250px" alt="Products">
                 <div class="card-body">
                  <a class="btn btn-outline-secondary" href="{% url 'showproduct' prod.pk %}">Show</a>
+                 <a class="btn btn-outline-black" href="{% url 'updateProduct' prod.pk %}">Update</a>
                  <a class="btn btn-outline-danger " href="{% url 'deleteproduct' prod.pk %}">Delete</a>
                 </div>
             </div>

@@ -1,6 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from .models import Product
+from .forms import AddNewProduct
 # Create your views here.
 
 def sayHello(request):
@@ -50,4 +51,20 @@ def deleteProduct(request,id):
     product.delete()
     return redirect('/products')
 
+     
+def addProducts(request):
+    if request.method =="POST":
+         newProduct =AddNewProduct(request.POST,request.FILES)
+         if newProduct.is_valid():
+            newProduct.save()
+            return redirect('/products')
+    return render(request,'addproduct.html',{'form':AddNewProduct})
 
+
+def updateProduct(request, id):
+    obj = get_object_or_404(Product, pk=id)
+    form = AddNewProduct(request.POST ,request.FILES or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect('/products', pk=obj.id)
+    return render(request, 'update.html', {'form': form})
