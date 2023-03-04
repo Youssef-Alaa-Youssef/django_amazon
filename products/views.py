@@ -61,10 +61,25 @@ def addProducts(request):
     return render(request,'addproduct.html',{'form':AddNewProduct})
 
 
-def updateProduct(request, id):
-    obj = get_object_or_404(Product, pk=id)
-    form = AddNewProduct(request.POST ,request.FILES or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        return redirect('/products', pk=obj.id)
-    return render(request, 'update.html', {'form': form})
+# def updateProduct(request, id):
+#     obj = get_object_or_404(Product, pk=id)
+#     form = AddNewProduct(request.POST ,request.FILES, instance=obj)
+#     if form.is_valid():
+#         form.save()
+#         return redirect('/products', pk=obj.id)
+#     return render(request, 'showProdcut.html', {'form': form})
+
+
+def updateProduct(request,id):
+    myproducts = get_object_or_404(Product, pk=id)
+    if request.method == 'GET':
+        form = AddNewProduct(instance=myproducts)
+        return render(request, 'update.html', context={'form': form})
+    if request.method == 'POST':
+        Productform = AddNewProduct(
+            request.POST, request.FILES, instance=myproducts)
+        if Productform.is_valid():
+            Productform.save()
+            return render(request, 'showProdcut.html', context={"form": myproducts})
+
+        return redirect('/products')

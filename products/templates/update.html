@@ -10,24 +10,8 @@
 <div class="container">
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <!-- <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Name</label>
-            <input type="text" class="form-control" value="{{product.name}}" id="exampleInputPassword1">
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Description</label>
-            <input type="text" class="form-control" value="{{product.description}}" id="exampleInputPassword1">
-          </div>
-          <img src="{{product.image.url}}" height="100px" width="300px" alt="">
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Image</label>
-            <input type="file" class="form-control" value="{{product.image.url}}" id="exampleInputPassword1">
-          </div>
-        <button class="btn btn-outline-secondary" type="submit">Add Product</button>
-    </form> -->
     {{ form.as_p }}
-    <button class="btn btn-outline-secondary" type="submit">Add Product</button>
-
+    <button class="btn btn-outline-secondary" type="submit">update Product</button>
 </div>
 <script src="{% static 'style.js' %}"> </script>
 

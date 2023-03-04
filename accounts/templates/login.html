@@ -1,0 +1,27 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %} About {% endblock %}
+
+    {% block nav %}Home{% endblock %}{% block link %}{% url 'home' %}{% endblock %}
+
+
+    {% block content %} 
+<div class="container shadow p-5 mt-4">
+
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <br>
+<div class="w-100">
+    <button class="btn btn-outline-dark w-25 m-auto ">Login Now</button>
+
+</div>
+    </form>
+    <div class="card-footer text-muted text-center mt-4">Create New Account <a class="btn btn-outline-secandary" href="{% url 'signUp' %}">Sign Up</a> </div>
+
+</div>
+<script src="{% static 'style.js' %}"> </script>
+
+    {% endblock %}
+
+ 

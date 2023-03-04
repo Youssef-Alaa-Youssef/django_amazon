@@ -41,19 +41,29 @@
                         </ul>
                     </li>
                 </ul>
+
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light bg-dark" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Hello,Sign In<br>
-                            Account &Lists
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if request.user.is_authenticated %}
+                            Hello,{{user.username}}
+                            {% else %}
+                            Let's Discover
+                            {% endif %}
                         </a>
                         <ul class="dropdown-menu bg-dark">
-                            <li><a class="dropdown-item text-light bg-dark" href="loginScreen.html">Sign Up</a></li>
-                            <li><a class="dropdown-item text-light bg-dark" href="signIn.html">Sign In</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a class="dropdown-item text-light bg-dark" href="{% url 'change.password' %}">Change Password</a></li>
+                           <li><a class="dropdown-item text-light bg-dark" href="{% url 'logout' %}">LogOut</a></li>
+                             {% else %}
+                            <li><a class="dropdown-item text-light bg-dark" href="{% url 'signUp' %}">Sign Up</a></li>
+                            <li><a class="dropdown-item text-light bg-dark" href="{% url 'login' %}">Sign In</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                 </ul>
+                {% if request.user.is_authenticated %}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active text-light" aria-current="page" href="#">Return<br>&Order </a>
@@ -70,6 +80,7 @@
     
                     </li>
                 </ul>
+                {% endif %}
             </div>
         </div>
     
@@ -79,7 +90,8 @@
     
     
     
-    
+    {% if request.user.is_authenticated %}
+
     <nav class="navbar navbar-expand-lg navbar-light bg-black">
         <div class="container-fluid">
             <i class="fa-solid fa-bars px-4 fa-3x " data-bs-toggle="offcanvas"
@@ -118,6 +130,7 @@
             </div>
         </div>
     </nav>
+    {% endif %}
     {% block content %} {% endblock %}
     
 

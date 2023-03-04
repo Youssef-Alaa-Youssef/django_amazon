@@ -34,8 +34,20 @@
         <div class="col-lg-3 col-md-4">
                 <img src="{{products.image.url}}" class="p-4 rounded-3" height="400px" alt="Products"> 
         </div>
-   
-    </div>
+        <div class="">
+          <h5 class="fw-bolder text-center">
+            Category
+          </h5>
+          {% for p in products.category.category_posts.all %}
+          <p class="text-danger">{{form}}</p>
+          {% if p.id != products.id %}
+          <ul class="list-group">
+            <a href="{% url 'showCategory' p.id %}"><li class="list-group-item ">{{p}}</li></a>
+          </ul>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
     </div>
     {% endblock %}
 
