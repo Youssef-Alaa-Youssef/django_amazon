@@ -2,18 +2,28 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from .models import Product
 from .forms import AddNewProduct
+from django.views.generic import View
 # Create your views here.
 
-def sayHello(request):
-    return render(request,'products.html')
+# def sayHello(request):
+#     return render(request,'products.html')
+
+class sayHello(View):
+    def get(self,request):
+        return render(request,'products.html')
 
 
-def aboutUs(request):
-    return render(request,'aboutus.html')
+# def aboutUs(request):
+#     return render(request,'aboutus.html')
+class aboutUs(View):
+    def get(self,request):
+        return render(request,'aboutus.html')
 
-
-def contactus(request):
-    return render(request,'contactus.html')
+# def contactus(request):
+#     return render(request,'contactus.html')
+class contactus(View):
+    def get(self,request):
+        return render(request,'contactus.html')
 
 
 data = [{
@@ -31,34 +41,72 @@ data = [{
 },
 ]
 
-def newproduct(request,id):
-     for product in data:
+# def newproduct(request,id):
+#      for product in data:
+#          if  product['id'] == id:
+#             return render(request, 'newproduct.html', context={"product":product})
+#      else:
+#          return HttpResponse("Product Not Found")
+class  newproduct(View):
+    def get(self,request,id):
+        for product in data:
          if  product['id'] == id:
             return render(request, 'newproduct.html', context={"product":product})
-     else:
-         return HttpResponse("Product Not Found")
+        else:
+            return HttpResponse("Product Not Found")
+
+# def products(request):
+#     products =Product.objects.all()
+#     return render(request,'dbproduct.html',context={'products':products})
+class products(View):
+    def get(self,request):
+        products =Product.objects.all()
+        return render(request,'dbproduct.html',context={'products':products})
+# def showProduct(request,id):
+#     products =Product.objects.get(pk=id)
+#     return render(request,'showProdcut.html',context={'products':products})
+
+class showProduct(View):
+    def get(self,request,id):
+        products =Product.objects.get(pk=id)
+        return render(request,'showProdcut.html',context={'products':products})
+
+
+# def deleteProduct(request,id):
+#     product= Product.objects.get(pk=id)
+#     product.delete()
+#     return redirect('/products')
+
+
+class deleteProduct(View):
+    def get(self,request,id):
+        product= Product.objects.get(pk=id)
+        product.delete()
+        return redirect('/products')
+
      
-def products(request):
-    products =Product.objects.all()
-    return render(request,'dbproduct.html',context={'products':products})
+# def addProducts(request):
+#     if request.method =="POST":
+#          newProduct =AddNewProduct(request.POST,request.FILES)
+#          if newProduct.is_valid():
+#             newProduct.save()
+#             return redirect('/products')
+#     return render(request,'addproduct.html',{'form':AddNewProduct})
 
-def showProduct(request,id):
-    products =Product.objects.get(pk=id)
-    return render(request,'showProdcut.html',context={'products':products})
 
-def deleteProduct(request,id):
-    product= Product.objects.get(pk=id)
-    product.delete()
-    return redirect('/products')
-
-     
-def addProducts(request):
-    if request.method =="POST":
-         newProduct =AddNewProduct(request.POST,request.FILES)
-         if newProduct.is_valid():
+class addProducts(View):
+    def post(self,request):
+        newProduct =AddNewProduct(request.POST,request.FILES)
+        if newProduct.is_valid():
             newProduct.save()
             return redirect('/products')
-    return render(request,'addproduct.html',{'form':AddNewProduct})
+        return render(request,'addproduct.html',{'form':AddNewProduct})
+        
+        
+    def get(self,request):
+            return render(request,'addproduct.html',{'form':AddNewProduct})
+
+
 
 
 # def updateProduct(request, id):
@@ -70,16 +118,34 @@ def addProducts(request):
 #     return render(request, 'showProdcut.html', {'form': form})
 
 
-def updateProduct(request,id):
-    myproducts = get_object_or_404(Product, pk=id)
-    if request.method == 'GET':
-        form = AddNewProduct(instance=myproducts)
-        return render(request, 'update.html', context={'form': form})
-    if request.method == 'POST':
+# def updateProduct(request,id):
+#     myproducts = get_object_or_404(Product, pk=id)
+#     if request.method == 'GET':
+#         form = AddNewProduct(instance=myproducts)
+#         return render(request, 'update.html', context={'form': form})
+#     if request.method == 'POST':
+#         Productform = AddNewProduct(
+#             request.POST, request.FILES, instance=myproducts)
+#         if Productform.is_valid():
+#             Productform.save()
+#             return render(request, 'showProdcut.html', context={"form": myproducts})
+
+#         return redirect('/products')
+    
+class updateProduct(View):
+    
+    def post(self,request,id):
+        myproducts = get_object_or_404(Product, pk=id)
         Productform = AddNewProduct(
             request.POST, request.FILES, instance=myproducts)
         if Productform.is_valid():
             Productform.save()
-            return render(request, 'showProdcut.html', context={"form": myproducts})
+            return redirect('/products')
 
-        return redirect('/products')
+        return render(request, 'showProdcut.html', context={"form": myproducts})
+
+    def get(self,request,id):
+        myproducts = get_object_or_404(Product, pk=id)
+        form = AddNewProduct(instance=myproducts)
+        return render(request, 'update.html', context={'form': form})
+
