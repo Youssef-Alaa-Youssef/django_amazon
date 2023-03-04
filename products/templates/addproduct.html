@@ -1,4 +1,6 @@
 {%  extends 'base.html' %}
+{% load static %}
+
 
 {% block title %} About {% endblock %}
 
@@ -14,6 +16,7 @@
         <button class="btn btn-outline-secondary" type="submit">Add Product</button>
     </form>
 </div>
+<script src="{% static 'style.js' %}"> </script>
     {% endblock %}
 
  

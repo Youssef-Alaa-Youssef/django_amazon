@@ -1,5 +1,5 @@
 {%  extends 'base.html' %}
-
+{% load static %}
 {% block title %} About {% endblock %}
 
     {% block nav %}Home{% endblock %}{% block link %}{% url 'home' %}{% endblock %}
@@ -29,6 +29,8 @@
     <button class="btn btn-outline-secondary" type="submit">Add Product</button>
 
 </div>
+<script src="{% static 'style.js' %}"> </script>
+
     {% endblock %}
 
  
