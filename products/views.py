@@ -3,6 +3,11 @@ from django.http import HttpResponse
 from .models import Product
 from .forms import AddNewProduct
 from django.views.generic import View
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+from .serializer import ProductSerializer
+
 # Create your views here.
 
 # def sayHello(request):
@@ -149,3 +154,53 @@ class updateProduct(View):
         form = AddNewProduct(instance=myproducts)
         return render(request, 'update.html', context={'form': form})
 
+
+
+
+
+
+
+
+
+
+
+
+
+@api_view(['GET'])
+def api_product_all(request):
+    all_products = Product.objects.all()
+    st_serializer = ProductSerializer(all_products,many =True)
+    return Response(st_serializer.data)
+
+
+@api_view(["GET"])
+def get_spcific_product(request,pk):
+    product = get_object_or_404(Product,pk=pk)
+    st_serilaizer = ProductSerializer(product)
+    return Response(st_serilaizer.data,status.HTTP_200_OK)
+
+@api_view(["POST"])
+def add_product(request):
+    st_serilizer = ProductSerializer(data = request.data)
+    if st_serilizer.is_valid():
+        st_serilizer.save()
+        return Response(st_serilizer.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+def edit(request,id):
+    product = get_object_or_404(Product,pk=id)
+    serialize = ProductSerializer(instance=product,data=request.data)
+    print(serialize)
+    if serialize.is_valid():
+        serialize.save()
+        return Response(serialize.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['DELETE'])
+def delete(request,id):
+    item = get_object_or_404(Product, pk=id)
+    item.delete()
+    return Response(status=status.HTTP_202_ACCEPTED)
