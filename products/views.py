@@ -186,7 +186,7 @@ def add_product(request):
         st_serilizer.save()
         return Response(st_serilizer.data)
     else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(st_serilizer.errors,status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 def edit(request,id):
@@ -197,7 +197,7 @@ def edit(request,id):
         serialize.save()
         return Response(serialize.data)
     else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(serialize.errors,status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['DELETE'])
 def delete(request,id):

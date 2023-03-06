@@ -9,7 +9,7 @@ class Product(models.Model):
     description = models.CharField(max_length=100)
     image =models.ImageField(upload_to='images/', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,
-                                 related_name='category_posts')
+                                 related_name='category_posts',default=1)
 
     def __str__(self):
         return self.name

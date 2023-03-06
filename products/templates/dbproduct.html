@@ -19,7 +19,9 @@
         
             <div class="card  rounded-3 text-center h-100" style="box-shadow:5px 5px 5px gray">
                 <h5 class="card-title p-2 fw-bolder">{{prod.name}}</h5>
+                {% if prod.image %}
                 <img src="{{prod.image.url}}" class="card-img-top p-4 rounded-3" height="250px" alt="Products">
+{% endif %}
                 <div class="card-body">
                  <a class="btn btn-outline-secondary" href="{% url 'showproduct' prod.pk %}">Show</a>
                  <a class="btn btn-outline-dark" href="{% url 'updateProduct' prod.pk %}">Update</a>

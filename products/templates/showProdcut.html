@@ -32,7 +32,9 @@
              
               </table>
         <div class="col-lg-3 col-md-4">
+          {% if products.image %}
                 <img src="{{products.image.url}}" class="p-4 rounded-3" height="400px" alt="Products"> 
+                {% endif %}
         </div>
         <div class="">
           <h5 class="fw-bolder text-center">
