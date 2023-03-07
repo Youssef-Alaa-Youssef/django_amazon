@@ -99,6 +99,10 @@ class deleteProduct(View):
 #     return render(request,'addproduct.html',{'form':AddNewProduct})
 
 
+
+
+
+
 class addProducts(View):
     def post(self,request):
         newProduct =AddNewProduct(request.POST,request.FILES)
@@ -166,41 +170,69 @@ class updateProduct(View):
 
 
 
-@api_view(['GET'])
+
+@api_view(['GET','POST'])
 def api_product_all(request):
-    all_products = Product.objects.all()
-    st_serializer = ProductSerializer(all_products,many =True)
-    return Response(st_serializer.data)
+    if request.method == "GET":
+        all_products = Product.objects.all()
+        st_serializer = ProductSerializer(all_products,many =True)
+        return Response(st_serializer.data)
+    elif request.method == "POST":
+        st_serilizer = ProductSerializer(data = request.data)
+        if st_serilizer.is_valid():
+            st_serilizer.save()
+            return Response(st_serilizer.data)
+        else:
+            return Response(st_serilizer.errors,status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view(["GET"])
-def get_spcific_product(request,pk):
-    product = get_object_or_404(Product,pk=pk)
-    st_serilaizer = ProductSerializer(product)
-    return Response(st_serilaizer.data,status.HTTP_200_OK)
 
-@api_view(["POST"])
-def add_product(request):
-    st_serilizer = ProductSerializer(data = request.data)
-    if st_serilizer.is_valid():
-        st_serilizer.save()
-        return Response(st_serilizer.data)
-    else:
-        return Response(st_serilizer.errors,status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['POST'])
-def edit(request,id):
+
+
+@api_view(['GET','POST','DELETE'])
+def get_spcific_product(request,id):
     product = get_object_or_404(Product,pk=id)
-    serialize = ProductSerializer(instance=product,data=request.data)
-    print(serialize)
-    if serialize.is_valid():
-        serialize.save()
-        return Response(serialize.data)
-    else:
-        return Response(serialize.errors,status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        st_serilaizer = ProductSerializer(product)
+        return Response(st_serilaizer.data,status.HTTP_200_OK)
+    elif request.method == "POST":
+        serialize = ProductSerializer(instance=product,data=request.data)
+        print(serialize)
+        if serialize.is_valid():
+            serialize.save()
+            return Response(serialize.data)
+        else:
+            return Response(serialize.errors,status=status.HTTP_404_NOT_FOUND)
+    elif request.method == "DELETE":
+        product.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
+
+
+
+
+# @api_view(["POST"])
+# def add_product(request):
+#     st_serilizer = ProductSerializer(data = request.data)
+#     if st_serilizer.is_valid():
+#         st_serilizer.save()
+#         return Response(st_serilizer.data)
+#     else:
+#         return Response(st_serilizer.errors,status=status.HTTP_404_NOT_FOUND)
+
+# @api_view(['POST'])
+# def edit(request,id):
+#     product = get_object_or_404(Product,pk=id)
+#     serialize = ProductSerializer(instance=product,data=request.data)
+#     print(serialize)
+#     if serialize.is_valid():
+#         serialize.save()
+#         return Response(serialize.data)
+#     else:
+#         return Response(serialize.errors,status=status.HTTP_404_NOT_FOUND)
     
-@api_view(['DELETE'])
-def delete(request,id):
-    item = get_object_or_404(Product, pk=id)
-    item.delete()
-    return Response(status=status.HTTP_202_ACCEPTED)
+# @api_view(['DELETE'])
+# def delete(request,id):
+#     item = get_object_or_404(Product, pk=id)
+#     item.delete()
+#     return Response(status=status.HTTP_202_ACCEPTED)
